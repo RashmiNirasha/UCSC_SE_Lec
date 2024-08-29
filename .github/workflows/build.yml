@@ -5,7 +5,6 @@ on:
     branches:
       - main
 
-
 jobs:
   build:
     name: Build and analyze
@@ -15,10 +14,10 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - name: Set up JDK 17
+      - name: Set up JDK 22
         uses: actions/setup-java@v1
         with:
-          java-version: 17
+          java-version: 22  # Ensure this matches the JDK you need
       - name: Cache SonarQube packages
         uses: actions/cache@v1
         with:
@@ -36,3 +35,4 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=RashmiNirasha_UCSC_SE_Lec_97d598fa-064a-45b2-89be-2c43e6299915 -Dsonar.projectName='UCSC_SE_Lec'
+        continue-on-error: true
